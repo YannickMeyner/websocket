@@ -5,6 +5,9 @@ namespace client2
 {
     class Program
     {
+        private static int clientId = 2;
+        private static int roomId = 1234;
+
         static async Task Main(string[] args)
         {
             Console.WriteLine("press any button to continue...");
@@ -12,20 +15,26 @@ namespace client2
 
             using (ClientWebSocket client = new ClientWebSocket())
             {
-                Uri serviceUri = new Uri("ws://localhost:5000/test");
+                Uri serviceUri = new Uri($"ws://localhost:5000/room:{roomId};user:{clientId}");
                 var cTs = new CancellationTokenSource();
                 cTs.CancelAfter(TimeSpan.FromSeconds(120));
                 try
                 {
                     await client.ConnectAsync(serviceUri, cTs.Token);
-                    var n = 0;
                     while (client.State == WebSocketState.Open)
                     {
                         Console.WriteLine("enter message to send");
                         var msg = Console.ReadLine();
+
+                        if (msg == "close")
+                        {
+                            await client.CloseAsync(WebSocketCloseStatus.NormalClosure, "client disconnected", CancellationToken.None);
+                            Environment.Exit(1);
+                        }
+
                         if (!string.IsNullOrWhiteSpace(msg))
                         {
-                            var byteToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes($"Client2: {msg}"));
+                            var byteToSend = new ArraySegment<byte>(Encoding.UTF8.GetBytes($"{msg}"));
                             await client.SendAsync(byteToSend, WebSocketMessageType.Text, true, cTs.Token);
                             var responseBuffer = new byte[1024];
                             var offset = 0;

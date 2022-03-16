@@ -1,5 +1,6 @@
 ﻿using System.Net.WebSockets;
 using System.Text;
+using WebSockets.Models;
 
 namespace server
 {
@@ -14,45 +15,56 @@ namespace server
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
+
+            services.AddSingleton<RoomHandler>();
+            services.AddSingleton<SocketHandler>();
+
             services.AddMvc(option => option.EnableEndpointRouting = false);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseRouting();
+
+            var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
+            var roomHandler = app.ApplicationServices.GetRequiredService<RoomHandler>();
+
             var wsOptions = new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(120) };
             app.UseWebSockets(wsOptions);
             app.Use(async (context, next) =>
             {
-                if (context.Request.Path == "/test")
+                if (context.Request.Path.HasValue)
                 {
                     if (context.WebSockets.IsWebSocketRequest)
                     {
-                        using (WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync())
+                        using WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+
+                        if (context.Request.Path.Value.Contains("/room"))
                         {
-                            await Send(context, webSocket);
+                            var raw = context.Request.Path.Value.Split("room:")[1];
+                            var roomId = raw.Split(';')[0];
+                            var userId = raw.Split(':')[1];
+                            roomHandler.AddUser(new User { Id = userId, RoomId = roomId });
+                            logger.LogInformation($"Client:{userId} in Room:{roomId} connected!");
+                            logger.LogInformation($"Connected Clients in Room:{roomId} --> {roomHandler.connectedUsers.Select(u => u.RoomId == roomId).Count()}");
+
+                            var status = await app.ApplicationServices.GetRequiredService<SocketHandler>().RoomService(context, webSocket, userId, roomId);
+
+                            if (status != "closed")
+                            {
+                                await next();
+                            }
+                            else
+                            {
+                                roomHandler.RemoveUser(new User { Id = userId, RoomId = roomId });
+                                logger.LogInformation($"Client:{userId} in Room:{roomId} disconnected!");
+                                logger.LogInformation($"Connected Clients in Room:{roomId} --> {roomHandler.connectedUsers.Select(u => u.RoomId == roomId).Count()}");
+                            }
                         }
                     }
                 }
-                await next();
             });
-        }
-
-        private async Task Send(HttpContext context, WebSocket webSocket)
-        {
-            var buffer = new byte[1024 * 4];
-            WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            if (result != null)
-            {
-                while (!result.CloseStatus.HasValue)
-                {
-                    var msg = Encoding.UTF8.GetString(new ArraySegment<byte>(buffer, 0, result.Count));
-                    Console.WriteLine($"client-message: {msg}");
-                    await webSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes($"server-message: success! Time:{DateTime.Now}")), result.MessageType, result.EndOfMessage, CancellationToken.None);
-                    result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                }
-            }
-            await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
         }
     }
 }
