@@ -1,0 +1,15 @@
+D:\git\websocket\Client2\bin\Debug\net6.0\Receiver.exe
+D:\git\websocket\Client2\bin\Debug\net6.0\Receiver.deps.json
+D:\git\websocket\Client2\bin\Debug\net6.0\Receiver.runtimeconfig.json
+D:\git\websocket\Client2\bin\Debug\net6.0\Receiver.dll
+D:\git\websocket\Client2\bin\Debug\net6.0\Receiver.pdb
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.csproj.AssemblyReference.cache
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.GeneratedMSBuildEditorConfig.editorconfig
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.AssemblyInfoInputs.cache
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.AssemblyInfo.cs
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.csproj.CoreCompileInputs.cache
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.dll
+D:\git\websocket\Client2\obj\Debug\net6.0\refint\Receiver.dll
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.pdb
+D:\git\websocket\Client2\obj\Debug\net6.0\Receiver.genruntimeconfig.cache
+D:\git\websocket\Client2\obj\Debug\net6.0\ref\Receiver.dll

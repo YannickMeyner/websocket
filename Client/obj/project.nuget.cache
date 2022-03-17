@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VV0cJ1dx+uKHlmvQ9U2+5Z/VZLhenOvK3kIODqU89R1CTiLz4g2/QPtetzBwx3iqHTZoqnT13f3NxV6GValQCQ==",
+  "dgSpecHash": "YBQrjNcVli6plFy9w0L+fNzjk1Ho3noT0DTRtAIekOTFQjNhdnwIolMKHtkNX76aFjFRsgXimAGXN1za2SZQpQ==",
   "success": true,
-  "projectFilePath": "D:\\git\\websocket\\Client\\Client.csproj",
+  "projectFilePath": "D:\\git\\websocket\\Client\\Sender.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Yannick\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Yannick\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "m7p4ECG4Ct9Amye9U+LzRjjf2OjwkjAk6tI6AIuKDzo=",
-  "Source": "WebSockets",
-  "BasePath": "_content/WebSockets",
+  "Hash": "z8/jf/uVtfFHkS7UZKSCL97FvnwEOhJPQdCo8dr/ZzU=",
+  "Source": "Server",
+  "BasePath": "_content/Server",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

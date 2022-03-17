@@ -5,7 +5,7 @@ namespace client
 {
     class Program
     {
-        private static int clientId = 1;
+        private static Guid clientId = Guid.NewGuid();
         private static int roomId = 1234;
 
         static async Task Main(string[] args)
@@ -15,7 +15,7 @@ namespace client
 
             using (ClientWebSocket client = new ClientWebSocket())
             {
-                Uri serviceUri = new Uri($"ws://localhost:5000/room:{roomId};user:{clientId}");
+                Uri serviceUri = new Uri($"ws://localhost:5000/room:{roomId};user:{clientId.ToString()}");
                 var cTs = new CancellationTokenSource();
                 cTs.CancelAfter(TimeSpan.FromSeconds(120));
                 try
@@ -44,7 +44,8 @@ namespace client
                                 var byteReceived = new ArraySegment<byte>(responseBuffer, offset, packet);
                                 WebSocketReceiveResult response = await client.ReceiveAsync(byteReceived, cTs.Token);
                                 var responseMsg = Encoding.UTF8.GetString(responseBuffer, offset, response.Count);
-                                Console.WriteLine(responseMsg);
+                                if (responseMsg != "sender")
+                                    Console.WriteLine(responseMsg);
                                 if (response.EndOfMessage)
                                     break;
                             }

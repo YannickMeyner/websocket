@@ -3571,9 +3571,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\git\\websocket\\Client\\Client.csproj",
-      "projectName": "Client",
-      "projectPath": "D:\\git\\websocket\\Client\\Client.csproj",
+      "projectUniqueName": "D:\\git\\websocket\\Client\\Sender.csproj",
+      "projectName": "Sender",
+      "projectPath": "D:\\git\\websocket\\Client\\Sender.csproj",
       "packagesPath": "C:\\Users\\Yannick\\.nuget\\packages\\",
       "outputPath": "D:\\git\\websocket\\Client\\obj\\",
       "projectStyle": "PackageReference",

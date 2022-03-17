@@ -45,11 +45,21 @@ namespace server
                             var raw = context.Request.Path.Value.Split("room:")[1];
                             var roomId = raw.Split(';')[0];
                             var userId = raw.Split(':')[1];
-                            roomHandler.AddUser(new User { Id = userId, RoomId = roomId });
-                            logger.LogInformation($"Client:{userId} in Room:{roomId} connected!");
-                            logger.LogInformation($"Connected Clients in Room:{roomId} --> {roomHandler.connectedUsers.Select(u => u.RoomId == roomId).Count()}");
+                            var room = roomHandler.openRooms.Where(r => r.Id == roomId).FirstOrDefault();
 
-                            var status = await app.ApplicationServices.GetRequiredService<SocketHandler>().RoomService(context, webSocket, userId, roomId);
+                            //check if roomId already exists
+                            if (room == null)
+                            {
+                                var newRoom = new Room(app.ApplicationServices) { Id = roomId };
+                                room = newRoom;
+                                roomHandler.AddRoom(newRoom);
+                            }
+
+                            room.AddMember(new User { Id = userId, Socket = webSocket });
+                            logger.LogInformation($"Client:{userId} in Room:{roomId} connected!");
+                            logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Count}");
+
+                            var status = await room.SendMessageToAll(context, webSocket, userId);
 
                             if (status != "closed")
                             {
@@ -57,9 +67,9 @@ namespace server
                             }
                             else
                             {
-                                roomHandler.RemoveUser(new User { Id = userId, RoomId = roomId });
+                                room.RemoveMember(new User { Id = userId });
                                 logger.LogInformation($"Client:{userId} in Room:{roomId} disconnected!");
-                                logger.LogInformation($"Connected Clients in Room:{roomId} --> {roomHandler.connectedUsers.Select(u => u.RoomId == roomId).Count()}");
+                                logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Count}");
                             }
                         }
                     }

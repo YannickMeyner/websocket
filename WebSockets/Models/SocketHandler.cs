@@ -6,15 +6,13 @@ namespace WebSockets.Models
     public class SocketHandler
     {
         private ILogger logger;
-        private readonly RoomHandler roomHandler;
 
         public SocketHandler(ILogger<SocketHandler> logger, IServiceProvider serviceProvider)
         {
             this.logger = logger;
-            roomHandler = serviceProvider.GetRequiredService<RoomHandler>();
         }
 
-        public async Task<string?> RoomService(HttpContext context, WebSocket webSocket, string? userId, string? roomId)
+        public async Task<string?> SendToAll(HttpContext context, WebSocket webSocket, string? sender, Room room)
         {
             var buffer = new byte[1024 * 4];
             WebSocketReceiveResult response = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
@@ -23,13 +21,28 @@ namespace WebSockets.Models
                 while (!response.CloseStatus.HasValue)
                 {
                     var msg = Encoding.UTF8.GetString(new ArraySegment<byte>(buffer, 0, response.Count));
-                    logger.LogInformation($"Client:{userId} in Room sent:{roomId}: {msg}");
-                    await webSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes($"success!")), response.MessageType, response.EndOfMessage, CancellationToken.None);
+                    logger.LogInformation($"Client:{sender} in Room sent:{room.Id}: {msg}");
+                    foreach (var user in room.Users)
+                    {
+                        if (user.Id == sender)
+                        {
+                            await user.Socket!.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes("sender")), response.MessageType, response.EndOfMessage, CancellationToken.None);
+                        }
+                        else
+                        {
+                            await user.Socket!.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes($"{sender} sent: {msg}")), response.MessageType, response.EndOfMessage, CancellationToken.None);
+                        }
+                    }
                     response = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 }
             }
             await webSocket.CloseAsync(response.CloseStatus.Value, response.CloseStatusDescription, CancellationToken.None);
             return "closed";
+        }
+
+        public async Task<string> SendToSpecific(HttpContext context, WebSocket webSocket, string? sender, Room room, string? receiverId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

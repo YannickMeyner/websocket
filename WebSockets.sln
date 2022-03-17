@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSockets", "WebSockets\WebSockets.csproj", "{BDA3E1DB-5641-4A6F-A3EB-D62454691E6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "WebSockets\Server.csproj", "{BDA3E1DB-5641-4A6F-A3EB-D62454691E6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{35491F7A-EF97-43C0-A416-5971A040F563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sender", "Client\Sender.csproj", "{35491F7A-EF97-43C0-A416-5971A040F563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client2", "Client2\Client2.csproj", "{5B63B1EA-B0B8-4A6B-B7B6-6235C82C6E2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Receiver", "Client2\Receiver.csproj", "{5B63B1EA-B0B8-4A6B-B7B6-6235C82C6E2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

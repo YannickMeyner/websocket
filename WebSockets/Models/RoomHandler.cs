@@ -1,24 +1,58 @@
-﻿namespace WebSockets.Models
+﻿using System.Net.WebSockets;
+
+namespace WebSockets.Models
 {
     public class RoomHandler
     {
         private readonly ILogger logger;
-        public List<User> connectedUsers = new List<User>();
+        public List<Room> openRooms = new List<Room>();
 
         public RoomHandler(ILogger<RoomHandler> logger)
         {
             this.logger = logger;
         }
 
-        public void AddUser(User user)
+        public void AddRoom(Room room)
         {
-            if (!connectedUsers.Where(u => u.Id == user.Id && u.RoomId == user.RoomId).Any())
-                connectedUsers.Add(user);
+            openRooms.Add(room);
+        }
+    }
+
+    public class Room
+    {
+        private readonly IServiceProvider serviceProvider;
+
+        public string? Id { get; set; }
+        public List<User> Users = new List<User>();
+
+        public Room(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
         }
 
-        public void RemoveUser(User user)
+        public void AddMember(User user)
         {
-            connectedUsers.RemoveAll(u => u.Id == user.Id && u.RoomId == user.RoomId);
+            Users.Add(user);
+        }
+
+        public void RemoveMember(User user)
+        {
+            Users.RemoveAll(u => u.Id == user.Id);
+        }
+
+        public async Task<string?> SendMessageToAll(HttpContext context, WebSocket webSocket, string? sender)
+        {
+            return await serviceProvider.GetRequiredService<SocketHandler>().SendToAll(context, webSocket, sender, this);
+        }
+
+        public async Task<string?> SendMessageToUser(HttpContext context, WebSocket webSocket, string? sender, string? receiver)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Receive()
+        {
+
         }
     }
 
@@ -26,5 +60,6 @@
     {
         public string? Id { get; set; }
         public string? RoomId { get; set; }
+        public WebSocket? Socket { get; set; }
     }
 }

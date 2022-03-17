@@ -13,9 +13,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\git\\websocket\\WebSockets\\WebSockets.csproj",
-      "projectName": "WebSockets",
-      "projectPath": "D:\\git\\websocket\\WebSockets\\WebSockets.csproj",
+      "projectUniqueName": "D:\\git\\websocket\\WebSockets\\Server.csproj",
+      "projectName": "Server",
+      "projectPath": "D:\\git\\websocket\\WebSockets\\Server.csproj",
       "packagesPath": "C:\\Users\\Yannick\\.nuget\\packages\\",
       "outputPath": "D:\\git\\websocket\\WebSockets\\obj\\",
       "projectStyle": "PackageReference",

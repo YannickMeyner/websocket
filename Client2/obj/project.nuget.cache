@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qyZE8esTqlXABowJrnSoejIm/9UCdV5Xjsmz0IbzCI+DRRiQn/HMxx484x0Vma3GmlPm6P+hoQWuiU7hZe31Ug==",
+  "dgSpecHash": "VosJP+EVHJWyF+W0grPt8EIjWzeVolrz/jffbUWbnmPfoJS+gtTrUFIaBy+jG5bsl/fCsf2ilgFiPLk8SZmmUA==",
   "success": true,
-  "projectFilePath": "D:\\git\\websocket\\Client2\\Client2.csproj",
+  "projectFilePath": "D:\\git\\websocket\\Client2\\Receiver.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
