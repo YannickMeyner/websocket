@@ -59,7 +59,8 @@ namespace server
                             logger.LogInformation($"Client:{userId} in Room:{roomId} connected!");
                             logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Count}");
 
-                            var status = await room.SendMessageToAll(context, webSocket, userId);
+                            var status = await room.SendMessageToAll(userId);
+                            //var status = await room.SendMessageToUser(userId, "88");
 
                             if (status != "closed")
                             {
@@ -67,9 +68,9 @@ namespace server
                             }
                             else
                             {
-                                room.RemoveMember(new User { Id = userId });
-                                logger.LogInformation($"Client:{userId} in Room:{roomId} disconnected!");
-                                logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Count}");
+                                //room.RemoveMember(new User { Id = userId });
+                                //logger.LogInformation($"Client:{userId} in Room:{roomId} disconnected!");
+                                //logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Count}");
                             }
                         }
                     }

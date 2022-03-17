@@ -40,14 +40,18 @@ namespace WebSockets.Models
             Users.RemoveAll(u => u.Id == user.Id);
         }
 
-        public async Task<string?> SendMessageToAll(HttpContext context, WebSocket webSocket, string? sender)
+        public async Task<string?> SendMessageToAll(string? sender)
         {
-            return await serviceProvider.GetRequiredService<SocketHandler>().SendToAll(context, webSocket, sender, this);
+            return await serviceProvider.GetRequiredService<SocketHandler>().SendToAll(sender, this);
         }
 
-        public async Task<string?> SendMessageToUser(HttpContext context, WebSocket webSocket, string? sender, string? receiver)
+        public async Task<string?> SendMessageToUser(string? sender, string? receiver)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await serviceProvider.GetRequiredService<SocketHandler>().SendToSpecific(sender, this, receiver);
+            }
+            catch (Exception ex) { return null; }
         }
 
         public void Receive()

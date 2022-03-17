@@ -10,12 +10,13 @@ namespace client
 
         static async Task Main(string[] args)
         {
-            Console.WriteLine("press any button to continue...");
+            Uri serviceUri = new Uri($"ws://localhost:5000/room:{roomId};user:{clientId.ToString()}");
+
+            Console.WriteLine($"press any button to connect to socket-address {serviceUri.AbsolutePath}...");
             Console.ReadLine();
 
             using (ClientWebSocket client = new ClientWebSocket())
             {
-                Uri serviceUri = new Uri($"ws://localhost:5000/room:{roomId};user:{clientId.ToString()}");
                 var cTs = new CancellationTokenSource();
                 cTs.CancelAfter(TimeSpan.FromSeconds(120));
                 try
