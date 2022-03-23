@@ -21,6 +21,16 @@ namespace server
             services.AddSingleton<SocketHandler>();
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
+
+            //Swagger
+            services.AddSwaggerDocument(config =>
+            {
+                config.PostProcess = document =>
+                {
+                    document.Info.Version = "v1";
+                    document.Info.Title = "feedback.loop.simulator API";
+                };
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -29,6 +39,12 @@ namespace server
 
             var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
             var roomHandler = app.ApplicationServices.GetRequiredService<RoomHandler>();
+
+            //Swagger
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+
+            app.UseMvc();
 
             var wsOptions = new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(120) };
             app.UseWebSockets(wsOptions);
@@ -45,21 +61,16 @@ namespace server
                             var raw = context.Request.Path.Value.Split("room:")[1];
                             var roomId = raw.Split(';')[0];
                             var userId = raw.Split(':')[1];
-                            var room = roomHandler.openRooms.Where(r => r.Id == roomId).FirstOrDefault();
+                            var room = roomHandler.openRooms.Where(r => r.Id == roomId).First();
+                            var roomMember = room.Users.Where(u => u.Id == userId).First();
 
-                            //check if roomId already exists
-                            if (room == null)
-                            {
-                                var newRoom = new Room(app.ApplicationServices) { Id = roomId };
-                                room = newRoom;
-                                roomHandler.AddRoom(newRoom);
-                            }
+                            //update websocket
+                            roomMember.Socket = webSocket;
 
-                            room.AddMember(new User { Id = userId, Socket = webSocket });
                             logger.LogInformation($"Client:{userId} in Room:{roomId} connected!");
-                            logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Count}");
+                            logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Where(u => u.Socket != null).Count()}");
 
-                            var status = await room.SendMessageToAll(userId);
+                            var status = await room.SendMessageToAll(roomMember.Id);
                             //var status = await room.SendMessageToUser(userId, "88");
 
                             if (status != "closed")

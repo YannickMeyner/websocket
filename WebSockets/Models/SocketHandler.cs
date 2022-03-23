@@ -14,32 +14,39 @@ namespace WebSockets.Models
 
         public async Task<string?> SendToAll(string? senderId, Room room)
         {
-            var sender = room.Users.Where(u => u.Id == senderId).First();
-
-            var buffer = new byte[1024 * 4];
-            WebSocketReceiveResult response = await sender.Socket!.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            if (response != null)
+            try
             {
-                while (!response.CloseStatus.HasValue)
+                var sender = room.Users.Where(u => u.Id == senderId).First();
+
+                var buffer = new byte[1024 * 4];
+                WebSocketReceiveResult response = await sender.Socket!.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                if (response != null)
                 {
-                    var msg = Encoding.UTF8.GetString(new ArraySegment<byte>(buffer, 0, response.Count));
-                    logger.LogInformation($"Client:{sender.Id} in Room sent:{room.Id}: {msg}");
-                    foreach (var user in room.Users)
+                    while (!response.CloseStatus.HasValue)
                     {
-                        if (user.Id == sender.Id)
+                        var msg = Encoding.UTF8.GetString(new ArraySegment<byte>(buffer, 0, response.Count));
+                        logger.LogInformation($"Client:{sender.Id} in Room sent:{room.Id}: {msg}");
+                        foreach (var user in room.Users.Where(u => u.Socket != null))
                         {
-                            await user.Socket!.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes("sender")), response.MessageType, response.EndOfMessage, CancellationToken.None);
+                            if (user.Id == sender.Id)
+                            {
+                                await user.Socket!.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes("sender")), response.MessageType, response.EndOfMessage, CancellationToken.None);
+                            }
+                            else
+                            {
+                                await user.Socket!.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes($"{sender.Id} sent: {msg}")), response.MessageType, response.EndOfMessage, CancellationToken.None);
+                            }
                         }
-                        else
-                        {
-                            await user.Socket!.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes($"{sender.Id} sent: {msg}")), response.MessageType, response.EndOfMessage, CancellationToken.None);
-                        }
+                        response = await sender.Socket!.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                     }
-                    response = await sender.Socket!.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 }
+                await sender.Socket!.CloseAsync(response.CloseStatus.Value, response.CloseStatusDescription, CancellationToken.None);
+                return "closed";
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
             }
-            await sender.Socket!.CloseAsync(response.CloseStatus.Value, response.CloseStatusDescription, CancellationToken.None);
-            return "closed";
         }
 
         public async Task<string?> SendToSpecific(string? senderId, Room room, string? receiverId)

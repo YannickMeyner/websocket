@@ -5,12 +5,12 @@ namespace client
 {
     class Program
     {
-        private static Guid clientId = Guid.NewGuid();
-        private static int roomId = 1234;
+        private static Guid clientId = Guid.Parse("6458c64f-cdd4-4d23-ae12-feaaaac4ba01"); /*Guid.NewGuid();*/
+        private static Guid roomId = Guid.Parse("35fb1aa2-2849-4f1f-870c-203e38f1cc0d"); /*1234;*/
 
         static async Task Main(string[] args)
         {
-            Uri serviceUri = new Uri($"ws://localhost:5000/room:{roomId};user:{clientId.ToString()}");
+            Uri serviceUri = new Uri($"ws://localhost:5000/room:{roomId};user:{clientId}");
 
             Console.WriteLine($"press any button to connect to socket-address {serviceUri.AbsolutePath}...");
             Console.ReadLine();

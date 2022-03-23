@@ -23,11 +23,18 @@ namespace Server.Controllers
         {
             try
             {
-                roomHandler.AddRoom(new Room(serviceProvider)
+                var room = new Room(serviceProvider)
                 {
                     Id = roomId.ToString(),
                     Creator = userId
+                };
+                room.AddMember(new WebSockets.Models.User
+                {
+                    Id = userId,
+                    RoomId = roomId.ToString(),
                 });
+
+                roomHandler.AddRoom(room);
 
                 return Ok();
             }
@@ -43,7 +50,18 @@ namespace Server.Controllers
         {
             try
             {
-                throw new NotImplementedException();
+                var room = roomHandler.openRooms.Where(r => r.Id == roomId.ToString()).FirstOrDefault();
+
+                if (room == null)
+                    return BadRequest($"can't join room '{roomId}' because the room doesn't exist");
+
+                room.AddMember(new User
+                {
+                    Id = userId,
+                    RoomId = roomId.ToString(),
+                });
+
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -51,5 +69,7 @@ namespace Server.Controllers
                 return BadRequest(ex);
             }
         }
+
+
     }
 }
