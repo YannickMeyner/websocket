@@ -23,6 +23,7 @@ namespace WebSockets.Models
         private readonly IServiceProvider serviceProvider;
 
         public string? Id { get; set; }
+        public string? Creator { get; set; }
         public List<User> Users = new List<User>();
 
         public Room(IServiceProvider serviceProvider)

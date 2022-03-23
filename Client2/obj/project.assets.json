@@ -8,19 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Yannick\\.nuget\\packages\\": {}
+    "C:\\Users\\Mey\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\git\\websocket\\Client2\\Receiver.csproj",
+      "projectUniqueName": "C:\\Users\\Mey\\Documents\\git\\websocket\\Client2\\Receiver.csproj",
       "projectName": "Receiver",
-      "projectPath": "D:\\git\\websocket\\Client2\\Receiver.csproj",
-      "packagesPath": "C:\\Users\\Yannick\\.nuget\\packages\\",
-      "outputPath": "D:\\git\\websocket\\Client2\\obj\\",
+      "projectPath": "C:\\Users\\Mey\\Documents\\git\\websocket\\Client2\\Receiver.csproj",
+      "packagesPath": "C:\\Users\\Mey\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mey\\Documents\\git\\websocket\\Client2\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Yannick\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mey\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,7 +32,9 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "http://pmi036:1338/nuget": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://pkgs.dev.azure.com/PMI-AG/_packaging/SharedPackages/nuget/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
