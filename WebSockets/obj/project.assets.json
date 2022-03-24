@@ -1398,11 +1398,12 @@
       ]
     },
     "System.Dynamic.Runtime/4.0.11": {
-      "sha512": "7BZ9LQTlkKrweSgrbthbNl1/VT0NaQH+E54q6px/wLP6po/YlxxBnqOGLqidX0GQ6GqI/v4Le2rxectyrj0LAg==",
+      "sha512": "db34f6LHYM0U0JpE+sOmjar27BnqTVkbLJhgfwMpTdgTigG/Hna3m2MYVwnFzGGKnEJk2UXFuoVTr8WUbU91/A==",
       "type": "package",
       "path": "system.dynamic.runtime/4.0.11",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -2637,11 +2638,12 @@
       ]
     },
     "System.Runtime.Serialization.Primitives/4.1.1": {
-      "sha512": "SXwDpWNlZxgXS0H/Hm1UDjsLeX8FOL+fWtmi3vYN6BV8E1g4+Hi29HBec77j4pvqk0z6dO4rWYhOTqbp1jP5fw==",
+      "sha512": "HZ6Du5QrTG8MNJbf4e4qMO3JRAkIboGT5Fk804uZtg3Gq516S7hAqTm2UZKUHa7/6HUGdVy3AqMQKbns06G/cg==",
       "type": "package",
       "path": "system.runtime.serialization.primitives/4.1.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -3250,23 +3252,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mey\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Yannick\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\Server.csproj",
+      "projectUniqueName": "D:\\git\\websocket\\WebSockets\\Server.csproj",
       "projectName": "Server",
-      "projectPath": "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\Server.csproj",
-      "packagesPath": "C:\\Users\\Mey\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\obj\\",
+      "projectPath": "D:\\git\\websocket\\WebSockets\\Server.csproj",
+      "packagesPath": "C:\\Users\\Yannick\\.nuget\\packages\\",
+      "outputPath": "D:\\git\\websocket\\WebSockets\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Mey\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Yannick\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3274,9 +3272,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://pmi036:1338/nuget": {},
-        "https://api.nuget.org/v3/index.json": {},
-        "https://pkgs.dev.azure.com/PMI-AG/_packaging/SharedPackages/nuget/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {

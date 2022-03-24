@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\Server.csproj": {}
+    "D:\\git\\websocket\\WebSockets\\Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\Server.csproj": {
+    "D:\\git\\websocket\\WebSockets\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\Server.csproj",
+        "projectUniqueName": "D:\\git\\websocket\\WebSockets\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\Server.csproj",
-        "packagesPath": "C:\\Users\\Mey\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mey\\Documents\\git\\websocket\\WebSockets\\obj\\",
+        "projectPath": "D:\\git\\websocket\\WebSockets\\Server.csproj",
+        "packagesPath": "C:\\Users\\Yannick\\.nuget\\packages\\",
+        "outputPath": "D:\\git\\websocket\\WebSockets\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Mey\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Yannick\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,9 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://pmi036:1338/nuget": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/PMI-AG/_packaging/SharedPackages/nuget/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {

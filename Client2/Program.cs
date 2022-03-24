@@ -5,8 +5,8 @@ namespace client2
 {
     class Program
     {
-        private static Guid clientId = Guid.Parse("c30b8358-3441-4b1f-9828-290ffc42c929"); /*Guid.NewGuid();*/
-        private static Guid roomId = Guid.Parse("35fb1aa2-2849-4f1f-870c-203e38f1cc0d"); /*1234;*/
+        private static Guid clientId = Guid.Parse("43deb38a-1ff9-426f-9597-153409ffccfe"); /*Guid.NewGuid();*/
+        private static Guid roomId = Guid.Parse("05d2efec-2189-4599-a83d-c11cb05537c5"); /*1234;*/
 
         static async Task Main(string[] args)
         {

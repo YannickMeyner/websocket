@@ -14,25 +14,34 @@ namespace WebSockets.Models
 
         public void AddRoom(Room room)
         {
+            if (room == null)
+                throw new Exception("room object cannot be null");
+
+            var alreadyExisting = openRooms.Where(r => r.Id == room.Id).FirstOrDefault();
+            if (alreadyExisting != null)
+                throw new Exception($"cannot create room because room '{room.Id}' already exists");
+
             openRooms.Add(room);
         }
     }
 
     public class Room
     {
-        private readonly IServiceProvider serviceProvider;
-
         public string? Id { get; set; }
         public string? Creator { get; set; }
         public List<User> Users = new List<User>();
 
-        public Room(IServiceProvider serviceProvider)
-        {
-            this.serviceProvider = serviceProvider;
-        }
+        public Room() { }
 
         public void AddMember(User user)
         {
+            if (user == null)
+                throw new Exception("user object cannot be null");
+
+            var userAlreadyExsting = Users.Where(u => u.Id == user.Id).FirstOrDefault();
+            if (userAlreadyExsting != null)
+                throw new Exception($"cannot add user because user '{user.Id}' is already a member of this room");
+
             Users.Add(user);
         }
 
@@ -41,23 +50,18 @@ namespace WebSockets.Models
             Users.RemoveAll(u => u.Id == user.Id);
         }
 
-        public async Task<string?> SendMessageToAll(string? sender)
+        public async Task<string?> SendMessageToAll(string? sender, IServiceProvider serviceProvider)
         {
             return await serviceProvider.GetRequiredService<SocketHandler>().SendToAll(sender, this);
         }
 
-        public async Task<string?> SendMessageToUser(string? sender, string? receiver)
+        public async Task<string?> SendMessageToUser(string? sender, string? receiver, IServiceProvider serviceProvider)
         {
             try
             {
                 return await serviceProvider.GetRequiredService<SocketHandler>().SendToSpecific(sender, this, receiver);
             }
             catch (Exception ex) { return null; }
-        }
-
-        public void Receive()
-        {
-
         }
     }
 

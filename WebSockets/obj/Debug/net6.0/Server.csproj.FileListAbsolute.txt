@@ -53,3 +53,16 @@ C:\Users\Mey\Documents\git\websocket\WebSockets\bin\Debug\net6.0\NSwag.Generatio
 C:\Users\Mey\Documents\git\websocket\WebSockets\bin\Debug\net6.0\YamlDotNet.dll
 C:\Users\Mey\Documents\git\websocket\WebSockets\obj\Debug\net6.0\Server.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Mey\Documents\git\websocket\WebSockets\obj\Debug\net6.0\Server.csproj.CopyComplete
+D:\git\websocket\WebSockets\bin\Debug\net6.0\Namotion.Reflection.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\Newtonsoft.Json.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NJsonSchema.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NJsonSchema.Yaml.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NSwag.Annotations.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NSwag.AspNetCore.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NSwag.Core.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NSwag.Core.Yaml.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NSwag.Generation.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\NSwag.Generation.AspNetCore.dll
+D:\git\websocket\WebSockets\bin\Debug\net6.0\YamlDotNet.dll
+D:\git\websocket\WebSockets\obj\Debug\net6.0\Server.MvcApplicationPartsAssemblyInfo.cs
+D:\git\websocket\WebSockets\obj\Debug\net6.0\Server.csproj.CopyComplete

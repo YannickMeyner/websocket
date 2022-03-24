@@ -1,5 +1,4 @@
 ﻿using System.Net.WebSockets;
-using System.Text;
 using WebSockets.Models;
 
 namespace server
@@ -70,7 +69,7 @@ namespace server
                             logger.LogInformation($"Client:{userId} in Room:{roomId} connected!");
                             logger.LogInformation($"Connected Clients in Room:{roomId} --> {room.Users.Where(u => u.Socket != null).Count()}");
 
-                            var status = await room.SendMessageToAll(roomMember.Id);
+                            var status = await room.SendMessageToAll(roomMember.Id, app.ApplicationServices);
                             //var status = await room.SendMessageToUser(userId, "88");
 
                             if (status != "closed")

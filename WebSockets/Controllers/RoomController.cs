@@ -8,13 +8,11 @@ namespace Server.Controllers
     public class RoomController : ControllerBase
     {
         private readonly ILogger<RoomController> logger;
-        private readonly IServiceProvider serviceProvider;
         private readonly RoomHandler roomHandler;
 
         public RoomController(ILogger<RoomController> logger, IServiceProvider serviceProvider)
         {
             this.logger = logger;
-            this.serviceProvider = serviceProvider;
             roomHandler = serviceProvider.GetRequiredService<RoomHandler>();
         }
 
@@ -23,18 +21,30 @@ namespace Server.Controllers
         {
             try
             {
-                var room = new Room(serviceProvider)
+                logger.LogInformation($"trying to create room '{roomId}'...");
+
+                var room = new Room
                 {
                     Id = roomId.ToString(),
                     Creator = userId
                 };
-                room.AddMember(new WebSockets.Models.User
+                room.AddMember(new User
                 {
                     Id = userId,
                     RoomId = roomId.ToString(),
                 });
 
-                roomHandler.AddRoom(room);
+                try
+                {
+                    roomHandler.AddRoom(room);
+                }
+                catch (Exception e)
+                {
+                    logger.LogError(e.Message);
+                    return BadRequest(e.Message);
+                }
+
+                logger.LogInformation($"room '{roomId}' successfully created");
 
                 return Ok();
             }
@@ -50,16 +60,28 @@ namespace Server.Controllers
         {
             try
             {
+                logger.LogInformation($"trying to join user '{userId}' in room '{roomId}'...");
+
                 var room = roomHandler.openRooms.Where(r => r.Id == roomId.ToString()).FirstOrDefault();
 
                 if (room == null)
                     return BadRequest($"can't join room '{roomId}' because the room doesn't exist");
 
-                room.AddMember(new User
+                try
                 {
-                    Id = userId,
-                    RoomId = roomId.ToString(),
-                });
+                    room.AddMember(new User
+                    {
+                        Id = userId,
+                        RoomId = roomId.ToString(),
+                    });
+                }
+                catch (Exception e)
+                {
+                    logger.LogError(e.Message);
+                    return BadRequest(e.Message);
+                }
+
+                logger.LogInformation($"user '{userId}' successfully joind room '{roomId}'");
 
                 return Ok();
             }
