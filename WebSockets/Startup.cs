@@ -16,6 +16,8 @@ namespace server
         {
             services.AddLogging();
 
+            services.AddCors();
+
             services.AddSingleton<RoomHandler>();
             services.AddSingleton<SocketHandler>();
 
@@ -38,6 +40,13 @@ namespace server
 
             var logger = app.ApplicationServices.GetRequiredService<ILogger<Program>>();
             var roomHandler = app.ApplicationServices.GetRequiredService<RoomHandler>();
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
             //Swagger
             app.UseOpenApi();

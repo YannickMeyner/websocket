@@ -62,10 +62,16 @@ namespace Server.Controllers
             {
                 logger.LogInformation($"trying to join user '{userId}' in room '{roomId}'...");
 
+                if (userId == null)
+                    return BadRequest();
+
                 var room = roomHandler.openRooms.Where(r => r.Id == roomId.ToString()).FirstOrDefault();
 
                 if (room == null)
+                {
+                    logger.LogError($"can't join room '{roomId}' because the room doesn't exist");
                     return BadRequest($"can't join room '{roomId}' because the room doesn't exist");
+                }
 
                 try
                 {
@@ -81,14 +87,14 @@ namespace Server.Controllers
                     return BadRequest(e.Message);
                 }
 
-                logger.LogInformation($"user '{userId}' successfully joind room '{roomId}'");
+                logger.LogInformation($"user '{userId}' successfully joined room '{roomId}'");
 
                 return Ok();
             }
             catch (Exception ex)
             {
                 logger.LogError($"Error occured in {Request.Path.Value} with exception '{ex.Message}'");
-                return BadRequest(ex);
+                return BadRequest();
             }
         }
 

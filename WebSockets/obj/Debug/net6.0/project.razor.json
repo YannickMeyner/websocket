@@ -1,5 +1,5 @@
 {
-  "FilePath": "d:\\git\\websocket\\WebSockets\\WebSockets.csproj",
+  "FilePath": "d:\\git\\websocket\\WebSockets\\Server.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "6.0",
@@ -16295,7 +16295,7 @@
     ],
     "CSharpLanguageVersion": 1000
   },
-  "RootNamespace": "WebSockets",
+  "RootNamespace": "Server",
   "Documents": [],
   "SerializationFormat": "0.2"
 }
